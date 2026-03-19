@@ -5,6 +5,7 @@ import 'package:blabla/data/repos/ride/ride_repository_mock.dart';
 import 'package:blabla/data/repos/ride_preference/ride_preference_repository.dart';
 import 'package:blabla/data/repos/ride_preference/ride_preference_repository_mock.dart';
 import 'package:blabla/main_common.dart';
+import 'package:blabla/ui/states/ride_preferences_state.dart';
 import 'package:nested/nested.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,9 @@ List<SingleChildWidget> get devProviders {
     Provider<RideRepository>(create: (context) => RideRepositoryMock()),
 
     // 3. Inject ridePref repository
-    Provider<RidePreferenceRepository>(create: (context) => RidePreferenceRepositoryMock())
+    Provider<RidePreferenceRepository>(create: (context) => RidePreferenceRepositoryMock()),
+
+    ChangeNotifierProvider(create: (context) => RidePreferencesState(context.read<RidePreferenceRepository>())..init())
   ];
 }
 
