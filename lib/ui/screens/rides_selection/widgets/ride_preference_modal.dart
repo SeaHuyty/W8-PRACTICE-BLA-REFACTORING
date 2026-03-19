@@ -9,21 +9,16 @@ import '../../../widgets/buttons/bla_icon_button.dart';
 //
 // Wrap the ride preference picker within a modal 
 //
-class RidePreferenceModal extends StatefulWidget {
+class RidePreferenceModal extends StatelessWidget {
   const RidePreferenceModal({super.key, required this.initialPreference});
 
   final RidePreference? initialPreference;
 
-  @override
-  State<RidePreferenceModal> createState() => _RidePreferenceModalState();
-}
-
-class _RidePreferenceModalState extends State<RidePreferenceModal> {
-  void onBackSelected() {
+  void onBackSelected(BuildContext context) {
     Navigator.of(context).pop();
   }
 
-  void onRidePreferenceSelected(RidePreference newPreference) {
+  void onRidePreferenceSelected(BuildContext context, RidePreference newPreference) {
     Navigator.of(context).pop<RidePreference>(newPreference);
   }
 
@@ -40,7 +35,7 @@ class _RidePreferenceModalState extends State<RidePreferenceModal> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Back icon
-            BlaIconButton(onPressed: onBackSelected, icon: Icons.close),
+            BlaIconButton(onPressed: () => onBackSelected(context), icon: Icons.close),
             SizedBox(height: BlaSpacings.m),
 
             // Title
@@ -54,8 +49,8 @@ class _RidePreferenceModalState extends State<RidePreferenceModal> {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: BlaRidePreferencePicker(
-                  initRidePreference: widget.initialPreference,
-                  onRidePreferenceSelected: onRidePreferenceSelected,
+                  initRidePreference: initialPreference,
+                  onRidePreferenceSelected: (newPref) => onRidePreferenceSelected(context, newPref),
                 ),
               ),
             ),

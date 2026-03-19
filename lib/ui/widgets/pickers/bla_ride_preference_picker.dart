@@ -1,10 +1,11 @@
+import 'package:blabla/ui/states/ride_preferences_state.dart';
 import 'package:blabla/ui/widgets/buttons/bla_button.dart';
 import 'package:blabla/ui/widgets/display/bla_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../model/ride/locations.dart';
 import '../../../model/ride_pref/ride_pref.dart';
-import '../../../services/ride_prefs_service.dart';
 import '../../../utils/animations_util.dart';
 import '../../../utils/date_time_utils.dart';
 import '../../theme/theme.dart';
@@ -51,7 +52,6 @@ class _BlaRidePreferencePickerState extends State<BlaRidePreferencePicker> {
   }
 
   @override
-  // TODO  - This kind of update should not be usefull with states watch () !!
   void didUpdateWidget(BlaRidePreferencePicker w) {
     super.didUpdateWidget(w);
     init();
@@ -109,12 +109,13 @@ class _BlaRidePreferencePickerState extends State<BlaRidePreferencePicker> {
   }
 
   void onSeatNumberPressed() async {
+    final int maxSeatAllow = context.read<RidePreferencesState>().maxAllowedSeats;
     // 1- Select a arrival
     int? selectedSeatNumber = await Navigator.of(context).push<int>(
       AnimationUtils.createRightToLeftRoute(
         BlaSeatPicker(
           initSeats: requestedSeats,
-          maxSeat: RidePrefsService.maxAllowedSeats,
+          maxSeat: maxSeatAllow,
         ),
       ),
     );
@@ -130,8 +131,6 @@ class _BlaRidePreferencePickerState extends State<BlaRidePreferencePicker> {
   void onSearch() async {
     bool hasDeparture = departure != null;
     bool hasArrival = arrival != null;
-
-    // TODO - Seat + date
 
     bool preferenceIsValid = hasArrival && hasDeparture;
     if (!preferenceIsValid) return;

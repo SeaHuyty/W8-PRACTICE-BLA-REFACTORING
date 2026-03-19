@@ -14,7 +14,7 @@ class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
 
   void onRidePrefSelected(BuildContext context, RidePreference pref) async {
-    context.watch<HomeViewModel>().selectPreference(pref); // updates state + notify listeners
+    context.read<HomeViewModel>().selectPreference(pref); // updates state + notify listeners
 
     await Navigator.of(context).push(
       AnimationUtils.createBottomToTopRoute(RidesSelectionScreen()),
@@ -23,16 +23,16 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.watch<HomeViewModel>();
+    final homeAsync = context.watch<HomeViewModel>();
     return Stack(
       children: [
         _buildBackground(),
-        _buildForeground(vm, context),
+        _buildForeground(homeAsync, context),
       ],
     );
   }
 
-  Widget _buildForeground(HomeViewModel vm, BuildContext context) {
+  Widget _buildForeground(HomeViewModel homeAsync, BuildContext context) {
     return Column(
       children: [
         // 1 - THE HEADER
@@ -58,13 +58,13 @@ class HomeContent extends StatelessWidget {
             children: [
               // 2 - THE FORM
               BlaRidePreferencePicker(
-                initRidePreference: vm.selectedRidePref,
+                initRidePreference: homeAsync.selectedRidePref,
                 onRidePreferenceSelected: (pref) => onRidePrefSelected(context, pref),
               ),
               SizedBox(height: BlaSpacings.m),
 
               // 3 - THE HISTORY
-              _buildHistory(vm, context),
+              _buildHistory(homeAsync, context),
             ],
           ),
         ),

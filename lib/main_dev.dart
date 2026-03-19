@@ -6,6 +6,7 @@ import 'package:blabla/data/repos/ride/ride_repository.dart';
 import 'package:blabla/data/repos/ride/ride_repository_mock.dart';
 import 'package:blabla/main_common.dart';
 import 'package:blabla/ui/screens/home/viewmodel/home_viewmodel.dart';
+import 'package:blabla/ui/screens/home/viewmodel/ride_selection_viewmodel.dart';
 import 'package:blabla/ui/states/ride_preferences_state.dart';
 import 'package:nested/nested.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,13 @@ List<SingleChildWidget> get devProviders {
       create: (context) => HomeViewModel(
         ridePreferencesState: context.read<RidePreferencesState>(),
       ),
+    ),
+
+    ChangeNotifierProvider<RideSelectionViewModel>(
+      create: (context) => RideSelectionViewModel(
+        ridePreferencesState: context.read<RidePreferencesState>(),
+        rideRepository: context.read<RideRepository>(),
+      )..init(),
     ),
   ];
 }
