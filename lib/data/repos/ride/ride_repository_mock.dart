@@ -1,33 +1,23 @@
+import 'package:blabla/data/dummy_data.dart';
 import 'package:blabla/data/repos/ride/ride_repository.dart';
+import 'package:blabla/model/ride/ride.dart';
 import 'package:blabla/model/ride_pref/ride_pref.dart';
 
-class RidePreferenceRepositoryMock implements RidePreferenceRepository{
-  RidePreference? _selectedPreference;
-  final List<RidePreference> _preferenceHistory = [];
-  static final int maxAllowedSeats = 8;
-
+class RideRepositoryMock implements RideRepository {
   @override
-  RidePreference? getSelectedPreference() {
-    return _selectedPreference;
+  List<Ride> fetchRides() {
+    return fakeRides;
   }
 
   @override
-  List<RidePreference> getpreferenceHistory() {
-    return _preferenceHistory;
-  }
-
-  void _addPreferenceToHistory(RidePreference preference) {
-    _preferenceHistory.add(preference);
-  }
-
-  @override
-  void selectPreference(RidePreference preference) {
-    if (preference != _selectedPreference) {
-      // Set the selected preference
-      _selectedPreference = preference;
-
-      // Push to history
-      _addPreferenceToHistory(preference);
-    }
+  List<Ride> getRidesFor(RidePreference preferences) {
+    return fakeRides
+        .where(
+          (ride) =>
+              ride.departureLocation == preferences.departure &&
+              ride.arrivalLocation == preferences.arrival &&
+              ride.availableSeats >= preferences.requestedSeats,
+        )
+        .toList();
   }
 }

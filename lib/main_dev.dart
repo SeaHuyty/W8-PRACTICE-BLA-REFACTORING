@@ -1,9 +1,9 @@
 import 'package:blabla/data/repos/location/location_repository.dart';
 import 'package:blabla/data/repos/location/location_repository_mock.dart';
-import 'package:blabla/data/repos/ride/ride_repository.dart';
-import 'package:blabla/data/repos/ride/ride_repository_mock.dart';
 import 'package:blabla/data/repos/ride_preference/ride_preference_repository.dart';
 import 'package:blabla/data/repos/ride_preference/ride_preference_repository_mock.dart';
+import 'package:blabla/data/repos/ride/ride_repository.dart';
+import 'package:blabla/data/repos/ride/ride_repository_mock.dart';
 import 'package:blabla/main_common.dart';
 import 'package:blabla/ui/screens/home/viewmodel/home_viewmodel.dart';
 import 'package:blabla/ui/states/ride_preferences_state.dart';

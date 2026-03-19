@@ -1,4 +1,4 @@
-import 'package:blabla/data/repos/ride/ride_repository.dart';
+import 'package:blabla/data/repos/ride_preference/ride_preference_repository.dart';
 import 'package:blabla/model/ride_pref/ride_pref.dart';
 import 'package:flutter/material.dart';
 
